@@ -33,13 +33,23 @@
         "product": "bluetooth-compatible-mp3-music-player-lossless-portable-fm-radio-external-ultra-thin-student-sports-walkman-mp3-player-recorder"
       }
     },
-    "about": {
+    "about_jmpkCY": {
       "type": "about",
+      "name": "Filosofia Brand",
       "settings": {
         "kicker": "La nostra missione",
         "headline": "Siamo costantemente connessi, ma raramente presenti.",
         "text_left": "<p>OFFMode nasce come risposta al sovraccarico digitale. In un mondo che corre, abbiamo creato un oggetto che ti invita a rallentare.</p>",
         "text_right": "<p>Ogni dettaglio è pensato per farti dimenticare il dispositivo e farti vivere il momento. Riprenditi il tuo tempo.</p>"
+      }
+    },
+    "about": {
+      "type": "about",
+      "settings": {
+        "kicker": "Prodotto in Evidenza",
+        "headline": "Bluetooth Compatible MP3 Music Player",
+        "text_left": "<p>Lettore MP3 portatile con tecnologia Bluetooth compatibile. Perfetto per chi ama la musica in movimento, con qualità audio lossless e design ultra-sottile.</p>",
+        "text_right": "<p>Caratteristiche: Radio FM integrata, registrazione audio, batteria lunga durata, design compatto e leggero. Ideale per studenti, sportivi e appassionati di musica.</p>"
       }
     },
     "testimonials": {
@@ -53,6 +63,7 @@
     "hero",
     "features",
     "product_showcase",
+    "about_jmpkCY",
     "about",
     "testimonials"
   ]
