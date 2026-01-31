@@ -1,52 +1,91 @@
 
-{% assign current_variant = product.selected_or_first_available_variant %}
+{%- assign product = all_products[section.settings.product] -%}
+{%- assign current_variant = product.selected_or_first_available_variant -%}
 
-<section id="prodotto" class="py-32 px-6 bg-white border-y border-[#e5e1d8] relative">
-  <div class="max-w-7xl mx-auto grid lg:grid-cols-2 gap-24">
-    
-    <div class="lg:sticky lg:top-32 h-fit">
-      <div class="bg-[#f9f7f2] aspect-square flex items-center justify-center p-16 border border-[#e5e1d8] relative overflow-hidden group">
-        <img src="{{ product.featured_image | img_url: '1000x' }}" class="w-full h-full object-contain mix-blend-multiply" alt="{{ product.title }}">
+<section id="prodotto" class="py-32 px-6 bg-white border-y border-[#e5e1d8]">
+  {% if product != blank %}
+    <div class="max-w-7xl mx-auto grid lg:grid-cols-2 gap-24">
+      
+      <!-- Gallery -->
+      <div class="lg:sticky lg:top-32 h-fit">
+        <div class="bg-[#f9f7f2] aspect-square flex items-center justify-center p-16 border border-[#e5e1d8] relative overflow-hidden group">
+          <img src="{{ product.featured_image | img_url: '1000x' }}" class="w-full h-full object-contain mix-blend-multiply" alt="{{ product.title }}">
+        </div>
+        <div class="grid grid-cols-4 gap-4 mt-6">
+          {% for image in product.images limit: 4 %}
+            <div class="aspect-square border border-[#e5e1d8] bg-[#f9f7f2]">
+              <img src="{{ image | img_url: '400x400', crop: 'center' }}" class="w-full h-full object-contain mix-blend-multiply">
+            </div>
+          {% endfor %}
+        </div>
       </div>
-      <div class="grid grid-cols-4 gap-4 mt-6">
-        {% for image in product.images %}
-          <div class="aspect-square border border-[#e5e1d8] bg-[#f9f7f2]">
-            <img src="{{ image | img_url: '200x200', crop: 'center' }}" class="w-full h-full object-contain mix-blend-multiply">
+
+      <!-- Content -->
+      <div class="flex flex-col justify-center">
+        <div class="mb-12">
+          <span class="text-[10px] font-black uppercase tracking-[0.3em] py-1 px-3 border border-black inline-block mb-6">Original Series</span>
+          <h2 class="serif text-5xl md:text-6xl mb-6 text-[#1a1a1a]">{{ product.title }}</h2>
+          <div class="flex items-baseline space-x-6 mb-8">
+            <span class="text-4xl font-medium text-[#1a1a1a]">{{ current_variant.price | money }}</span>
+            {% if current_variant.compare_at_price > current_variant.price %}
+              <span class="text-xl text-gray-300 line-through">{{ current_variant.compare_at_price | money }}</span>
+            {% endif %}
           </div>
-        {% endfor %}
+          <div class="text-gray-500 leading-relaxed text-lg font-light mb-8 prose">
+            {{ product.description }}
+          </div>
+        </div>
+
+        {% form 'product', product, class: 'space-y-8' %}
+          <input type="hidden" name="id" value="{{ current_variant.id }}">
+          
+          {% unless product.has_only_default_variant %}
+            <div class="p-8 bg-[#f9f7f2] border border-[#e5e1d8]">
+              <h4 class="text-[10px] font-bold uppercase tracking-[0.25em] text-gray-400 mb-6">Varianti Disponibili</h4>
+              <select name="id" class="w-full p-4 border border-[#e5e1d8] bg-white text-xs font-bold uppercase tracking-widest outline-none">
+                {% for variant in product.variants %}
+                  <option value="{{ variant.id }}" {% if variant == current_variant %}selected{% endif %}>
+                    {{ variant.title }} - {{ variant.price | money }}
+                  </option>
+                {% endfor %}
+              </select>
+            </div>
+          {% endunless %}
+
+          <div class="space-y-6">
+            <button type="submit" name="add" class="w-full bg-black text-white py-7 text-[11px] font-black uppercase tracking-[0.4em] hover:bg-zinc-800 transition-all">
+              {{ 'products.product.add_to_cart' | t | default: 'Aggiungi al Carrello' }}
+            </button>
+            
+            <div class="grid grid-cols-2 gap-4">
+              <div class="border border-[#e5e1d8] p-5 text-center">
+                <span class="block text-[9px] font-bold uppercase text-gray-400 mb-2 tracking-widest">Spedizione</span>
+                <span class="text-[11px] font-bold uppercase text-[#1a1a1a]">Rapida in 24/48h</span>
+              </div>
+              <div class="border border-[#e5e1d8] p-5 text-center">
+                <span class="block text-[9px] font-bold uppercase text-gray-400 mb-2 tracking-widest">Garanzia</span>
+                <span class="text-[11px] font-bold uppercase text-[#1a1a1a]">2 Anni Italia</span>
+              </div>
+            </div>
+          </div>
+        {% endform %}
       </div>
     </div>
-
-    <div class="flex flex-col justify-center">
-      <div class="mb-12">
-        <h2 class="serif text-5xl md:text-6xl mb-6 text-[#1a1a1a]">{{ product.title }}</h2>
-        <div class="flex items-baseline space-x-6 mb-8">
-          <span class="text-4xl font-medium text-[#1a1a1a]">{{ current_variant.price | money }}</span>
-          {% if current_variant.compare_at_price > current_variant.price %}
-            <span class="text-xl text-gray-300 line-through">{{ current_variant.compare_at_price | money }}</span>
-          {% endif %}
-        </div>
-        <div class="text-gray-500 leading-relaxed text-lg font-light mb-8">
-          {{ product.description }}
-        </div>
-      </div>
-
-      {% form 'product', product %}
-        <input type="hidden" name="id" value="{{ current_variant.id }}">
-        <div class="space-y-6">
-          <button type="submit" name="add" class="w-full bg-black text-white py-7 text-[11px] font-black uppercase tracking-[0.4em] hover:bg-zinc-800 transition-all">
-            {{ 'products.product.add_to_cart' | t | default: 'Aggiungi al Carrello' }}
-          </button>
-        </div>
-      {% endform %}
-    </div>
-  </div>
+  {% else %}
+    <div class="text-center py-20 italic text-gray-400">Seleziona un prodotto nelle impostazioni della sezione.</div>
+  {% endif %}
 </section>
 
 {% schema %}
 {
-  "name": "Product Display",
-  "settings": [],
-  "presets": [{ "name": "Product Display" }]
+  "name": "Prodotto in Evidenza",
+  "settings": [
+    {
+      "type": "product",
+      "id": "product",
+      "label": "Seleziona Prodotto"
+    }
+  ],
+  "presets": [{ "name": "Prodotto in Evidenza" }]
 }
 {% endschema %}

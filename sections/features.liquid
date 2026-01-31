@@ -1,0 +1,32 @@
+
+<section class="py-32 px-6">
+  <div class="max-w-7xl mx-auto">
+    <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-12">
+      {% for block in section.blocks %}
+        <div class="group" {{ block.shopify_attributes }}>
+          <span class="serif italic text-4xl text-gray-200 block mb-6 group-hover:text-black transition-colors">0{{ forloop.index }}</span>
+          <h3 class="text-xs font-bold uppercase tracking-widest mb-4">{{ block.settings.title }}</h3>
+          <p class="text-sm text-gray-500 leading-relaxed">{{ block.settings.text }}</p>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Caratteristiche",
+  "max_blocks": 4,
+  "blocks": [
+    {
+      "type": "feature",
+      "name": "Caratteristica",
+      "settings": [
+        { "type": "text", "id": "title", "label": "Titolo", "default": "Caratteristica" },
+        { "type": "textarea", "id": "text", "label": "Descrizione", "default": "Descrizione della caratteristica qui." }
+      ]
+    }
+  ],
+  "presets": [{ "name": "Griglia Caratteristiche" }]
+}
+{% endschema %}

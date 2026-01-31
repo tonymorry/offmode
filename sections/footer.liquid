@@ -1,0 +1,47 @@
+
+<footer class="py-24 px-6 border-t border-[#e5e1d8] bg-[#f9f7f2]">
+  <div class="max-w-7xl mx-auto">
+    <div class="grid md:grid-cols-4 gap-16 mb-20">
+      <div class="col-span-2">
+        <div class="flex items-center space-x-2 mb-8">
+          <span class="text-2xl font-bold tracking-[0.3em] uppercase">{{ shop.name }}</span>
+        </div>
+        <p class="text-gray-500 max-w-sm mb-10 leading-relaxed font-light">
+          {{ section.settings.about_text | default: 'Ritrova la connessione con te stesso attraverso la musica.' }}
+        </p>
+        <div class="flex space-x-8 text-[11px] font-bold tracking-widest uppercase">
+          {% if section.settings.instagram != blank %}<a href="{{ section.settings.instagram }}" class="hover:text-black">Instagram</a>{% endif %}
+          {% if section.settings.tiktok != blank %}<a href="{{ section.settings.tiktok }}" class="hover:text-black">TikTok</a>{% endif %}
+        </div>
+      </div>
+      
+      <div>
+        <h4 class="font-bold uppercase text-[10px] tracking-[0.3em] mb-8 text-gray-400">Navigazione</h4>
+        <ul class="space-y-4 text-[11px] font-semibold uppercase tracking-widest text-gray-500">
+          {% for link in linklists.footer.links %}
+            <li><a href="{{ link.url }}" class="hover:text-black">{{ link.title }}</a></li>
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+    
+    <div class="flex flex-col md:row items-center justify-between pt-10 border-t border-[#e5e1d8] text-[9px] text-gray-400 font-bold uppercase tracking-[0.3em]">
+      <p>&copy; {{ 'now' | date: "%Y" }} {{ shop.name | uppercase }} - DESIGNED FOR FOCUS</p>
+      <div class="flex space-x-8 mt-6 md:mt-0">
+        <a href="/policies/privacy-policy" class="hover:text-black">Privacy</a>
+        <a href="/policies/terms-of-service" class="hover:text-black">Terms</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+{% schema %}
+{
+  "name": "Footer",
+  "settings": [
+    { "type": "textarea", "id": "about_text", "label": "Testo About", "default": "OFFMode è una filosofia di vita, non solo un brand." },
+    { "type": "url", "id": "instagram", "label": "Link Instagram" },
+    { "type": "url", "id": "tiktok", "label": "Link TikTok" }
+  ]
+}
+{% endschema %}

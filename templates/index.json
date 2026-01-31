@@ -2,22 +2,25 @@
 {
   "sections": {
     "hero": {
-      "type": "hero"
+      "type": "hero",
+      "settings": {}
     },
     "features": {
-      "type": "features"
+      "type": "features",
+      "settings": {}
     },
     "product": {
-      "type": "main-product"
+      "type": "main-product",
+      "settings": {}
     },
-    "about": {
-      "type": "about"
+    "footer": {
+      "type": "footer",
+      "settings": {}
     }
   },
   "order": [
     "hero",
     "features",
-    "product",
-    "about"
+    "product"
   ]
 }
