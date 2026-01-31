@@ -3,24 +3,33 @@
   "sections": {
     "hero": {
       "type": "hero",
-      "settings": {}
+      "settings": {
+        "title_main": "La tua musica.",
+        "title_italic": "Senza rumore."
+      }
     },
     "features": {
       "type": "features",
       "settings": {}
     },
-    "product": {
+    "product_showcase": {
       "type": "main-product",
       "settings": {}
     },
-    "footer": {
-      "type": "footer",
+    "about": {
+      "type": "about",
+      "settings": {}
+    },
+    "testimonials": {
+      "type": "testimonials",
       "settings": {}
     }
   },
   "order": [
     "hero",
     "features",
-    "product"
+    "product_showcase",
+    "about",
+    "testimonials"
   ]
 }

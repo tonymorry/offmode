@@ -1,5 +1,5 @@
 
-<section class="py-32 px-6">
+<section id="dettagli" class="py-32 px-6">
   <div class="max-w-7xl mx-auto">
     <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-12">
       {% for block in section.blocks %}
@@ -22,11 +22,21 @@
       "type": "feature",
       "name": "Caratteristica",
       "settings": [
-        { "type": "text", "id": "title", "label": "Titolo", "default": "Caratteristica" },
-        { "type": "textarea", "id": "text", "label": "Descrizione", "default": "Descrizione della caratteristica qui." }
+        { "type": "text", "id": "title", "label": "Titolo", "default": "Titolo Caratteristica" },
+        { "type": "textarea", "id": "text", "label": "Descrizione", "default": "Descrizione dettagliata della funzionalità qui." }
       ]
     }
   ],
-  "presets": [{ "name": "Griglia Caratteristiche" }]
+  "presets": [
+    {
+      "name": "Griglia Caratteristiche",
+      "blocks": [
+        { "type": "feature", "settings": { "title": "Clip-On Design" } },
+        { "type": "feature", "settings": { "title": "Hybrid Sound" } },
+        { "type": "feature", "settings": { "title": "Radio FM" } },
+        { "type": "feature", "settings": { "title": "Digital Detox" } }
+      ]
+    }
+  ]
 }
 {% endschema %}

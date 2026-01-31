@@ -1,0 +1,26 @@
+
+<section id="filosofia" class="py-32 px-6 bg-[#1a1a1a] text-[#f9f7f2]">
+  <div class="max-w-5xl mx-auto text-center">
+    <span class="text-[10px] font-bold uppercase tracking-[0.5em] text-gray-500 mb-8 block">{{ section.settings.kicker }}</span>
+    <h2 class="serif text-4xl md:text-6xl italic mb-12 leading-tight">
+      {{ section.settings.headline }}
+    </h2>
+    <div class="grid md:grid-cols-2 gap-16 text-left text-gray-400 leading-relaxed">
+      <div>{{ section.settings.text_left }}</div>
+      <div>{{ section.settings.text_right }}</div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Filosofia Brand",
+  "settings": [
+    { "type": "text", "id": "kicker", "label": "Titolo piccolo", "default": "La nostra missione" },
+    { "type": "textarea", "id": "headline", "label": "Headline", "default": "Siamo costantemente connessi, ma raramente presenti." },
+    { "type": "richtext", "id": "text_left", "label": "Testo Colonna Sinistra", "default": "<p>OFFMode nasce come risposta al sovraccarico digitale. In un mondo che corre, abbiamo creato un oggetto che ti invita a rallentare.</p>" },
+    { "type": "richtext", "id": "text_right", "label": "Testo Colonna Destra", "default": "<p>Ogni dettaglio è pensato per farti dimenticare il dispositivo e farti vivere il momento. Riprenditi il tuo tempo.</p>" }
+  ],
+  "presets": [{ "name": "Filosofia Brand" }]
+}
+{% endschema %}

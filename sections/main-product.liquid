@@ -6,49 +6,59 @@
   {% if product != blank %}
     <div class="max-w-7xl mx-auto grid lg:grid-cols-2 gap-24">
       
-      <!-- Gallery -->
+      <!-- Gallery Column -->
       <div class="lg:sticky lg:top-32 h-fit">
         <div class="bg-[#f9f7f2] aspect-square flex items-center justify-center p-16 border border-[#e5e1d8] relative overflow-hidden group">
-          <img src="{{ product.featured_image | img_url: '1000x' }}" class="w-full h-full object-contain mix-blend-multiply" alt="{{ product.title }}">
+          <img id="MainProductImage" src="{{ product.featured_image | img_url: '1200x' }}" class="w-full h-full object-contain mix-blend-multiply transition-transform duration-700 group-hover:scale-110" alt="{{ product.title }}">
+          <div class="absolute bottom-6 right-6">
+            <span class="text-[10px] font-bold tracking-widest text-gray-300 uppercase">Studio Shot / Original</span>
+          </div>
         </div>
         <div class="grid grid-cols-4 gap-4 mt-6">
           {% for image in product.images limit: 4 %}
-            <div class="aspect-square border border-[#e5e1d8] bg-[#f9f7f2]">
+            <div class="aspect-square border border-[#e5e1d8] bg-[#f9f7f2] cursor-pointer hover:border-black transition-all">
               <img src="{{ image | img_url: '400x400', crop: 'center' }}" class="w-full h-full object-contain mix-blend-multiply">
             </div>
           {% endfor %}
         </div>
       </div>
 
-      <!-- Content -->
+      <!-- Info Column -->
       <div class="flex flex-col justify-center">
         <div class="mb-12">
-          <span class="text-[10px] font-black uppercase tracking-[0.3em] py-1 px-3 border border-black inline-block mb-6">Original Series</span>
+          <span class="text-[10px] font-black uppercase tracking-[0.3em] py-1 px-3 border border-black inline-block mb-6">Best Seller</span>
           <h2 class="serif text-5xl md:text-6xl mb-6 text-[#1a1a1a]">{{ product.title }}</h2>
           <div class="flex items-baseline space-x-6 mb-8">
-            <span class="text-4xl font-medium text-[#1a1a1a]">{{ current_variant.price | money }}</span>
+            <span id="ProductPrice" class="text-4xl font-medium text-[#1a1a1a]">{{ current_variant.price | money }}</span>
             {% if current_variant.compare_at_price > current_variant.price %}
               <span class="text-xl text-gray-300 line-through">{{ current_variant.compare_at_price | money }}</span>
             {% endif %}
           </div>
-          <div class="text-gray-500 leading-relaxed text-lg font-light mb-8 prose">
+          <div class="text-gray-500 leading-relaxed text-lg font-light mb-8">
             {{ product.description }}
           </div>
         </div>
 
-        {% form 'product', product, class: 'space-y-8' %}
+        {% form 'product', product, class: 'product-form space-y-8' %}
           <input type="hidden" name="id" value="{{ current_variant.id }}">
           
           {% unless product.has_only_default_variant %}
             <div class="p-8 bg-[#f9f7f2] border border-[#e5e1d8]">
-              <h4 class="text-[10px] font-bold uppercase tracking-[0.25em] text-gray-400 mb-6">Varianti Disponibili</h4>
-              <select name="id" class="w-full p-4 border border-[#e5e1d8] bg-white text-xs font-bold uppercase tracking-widest outline-none">
-                {% for variant in product.variants %}
-                  <option value="{{ variant.id }}" {% if variant == current_variant %}selected{% endif %}>
-                    {{ variant.title }} - {{ variant.price | money }}
-                  </option>
+              <h4 class="text-[10px] font-bold uppercase tracking-[0.25em] text-gray-400 mb-6">Opzioni Prodotto</h4>
+              <div class="space-y-4">
+                {% for option in product.options_with_values %}
+                  <div class="selector-wrapper">
+                    <label class="block text-[9px] font-bold uppercase tracking-widest text-gray-400 mb-3">{{ option.name }}</label>
+                    <select class="w-full p-4 border border-[#e5e1d8] bg-white text-xs font-bold uppercase tracking-widest outline-none focus:border-black transition-all">
+                      {% for value in option.values %}
+                        <option value="{{ value | escape }}" {% if option.selected_value == value %}selected{% endif %}>
+                          {{ value }}
+                        </option>
+                      {% endfor %}
+                    </select>
+                  </div>
                 {% endfor %}
-              </select>
+              </div>
             </div>
           {% endunless %}
 
@@ -59,8 +69,8 @@
             
             <div class="grid grid-cols-2 gap-4">
               <div class="border border-[#e5e1d8] p-5 text-center">
-                <span class="block text-[9px] font-bold uppercase text-gray-400 mb-2 tracking-widest">Spedizione</span>
-                <span class="text-[11px] font-bold uppercase text-[#1a1a1a]">Rapida in 24/48h</span>
+                <span class="block text-[9px] font-bold uppercase text-gray-400 mb-2 tracking-widest">Tempo di Ricarica</span>
+                <span class="text-[11px] font-bold uppercase text-[#1a1a1a]">45 Minuti</span>
               </div>
               <div class="border border-[#e5e1d8] p-5 text-center">
                 <span class="block text-[9px] font-bold uppercase text-gray-400 mb-2 tracking-widest">Garanzia</span>
@@ -72,13 +82,15 @@
       </div>
     </div>
   {% else %}
-    <div class="text-center py-20 italic text-gray-400">Seleziona un prodotto nelle impostazioni della sezione.</div>
+    <div class="text-center py-20 italic text-gray-400 border border-dashed border-gray-200">
+      Seleziona un prodotto nelle impostazioni della sezione per visualizzarlo qui.
+    </div>
   {% endif %}
 </section>
 
 {% schema %}
 {
-  "name": "Prodotto in Evidenza",
+  "name": "Showcase Prodotto",
   "settings": [
     {
       "type": "product",
@@ -86,6 +98,6 @@
       "label": "Seleziona Prodotto"
     }
   ],
-  "presets": [{ "name": "Prodotto in Evidenza" }]
+  "presets": [{ "name": "Showcase Prodotto" }]
 }
 {% endschema %}

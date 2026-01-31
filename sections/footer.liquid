@@ -7,7 +7,7 @@
           <span class="text-2xl font-bold tracking-[0.3em] uppercase">{{ shop.name }}</span>
         </div>
         <p class="text-gray-500 max-w-sm mb-10 leading-relaxed font-light">
-          {{ section.settings.about_text | default: 'Ritrova la connessione con te stesso attraverso la musica.' }}
+          {{ section.settings.footer_text | default: 'OFFMode è una filosofia di vita, non solo un brand.' }}
         </p>
         <div class="flex space-x-8 text-[11px] font-bold tracking-widest uppercase">
           {% if section.settings.instagram != blank %}<a href="{{ section.settings.instagram }}" class="hover:text-black">Instagram</a>{% endif %}
@@ -16,11 +16,20 @@
       </div>
       
       <div>
-        <h4 class="font-bold uppercase text-[10px] tracking-[0.3em] mb-8 text-gray-400">Navigazione</h4>
+        <h4 class="font-bold uppercase text-[10px] tracking-[0.3em] mb-8 text-gray-400">Esplora</h4>
         <ul class="space-y-4 text-[11px] font-semibold uppercase tracking-widest text-gray-500">
-          {% for link in linklists.footer.links %}
-            <li><a href="{{ link.url }}" class="hover:text-black">{{ link.title }}</a></li>
+          {% for link in linklists[section.settings.menu_footer].links %}
+            <li><a href="{{ link.url }}" class="hover:text-black transition-colors">{{ link.title }}</a></li>
           {% endfor %}
+        </ul>
+      </div>
+      
+      <div>
+        <h4 class="font-bold uppercase text-[10px] tracking-[0.3em] mb-8 text-gray-400">Supporto</h4>
+        <ul class="space-y-4 text-[11px] font-semibold uppercase tracking-widest text-gray-500">
+          <li><a href="/pages/contact" class="hover:text-black">Contatti</a></li>
+          <li><a href="/policies/shipping-policy" class="hover:text-black">Spedizioni</a></li>
+          <li><a href="/policies/refund-policy" class="hover:text-black">Resi</a></li>
         </ul>
       </div>
     </div>
@@ -37,9 +46,10 @@
 
 {% schema %}
 {
-  "name": "Footer",
+  "name": "Footer Theme",
   "settings": [
-    { "type": "textarea", "id": "about_text", "label": "Testo About", "default": "OFFMode è una filosofia di vita, non solo un brand." },
+    { "type": "textarea", "id": "footer_text", "label": "Testo About Footer", "default": "Ritrova la connessione con te stesso attraverso la musica." },
+    { "type": "link_list", "id": "menu_footer", "label": "Menu Footer", "default": "footer" },
     { "type": "url", "id": "instagram", "label": "Link Instagram" },
     { "type": "url", "id": "tiktok", "label": "Link TikTok" }
   ]

@@ -1,0 +1,43 @@
+
+<section class="py-32 px-6 bg-white">
+  <div class="max-w-7xl mx-auto flex flex-col items-center">
+    <h3 class="serif text-4xl mb-16 italic">{{ section.settings.title }}</h3>
+    <div class="grid md:grid-cols-2 gap-12 w-full max-w-4xl">
+      {% for block in section.blocks %}
+        <div class="border-l border-black pl-8 py-4" {{ block.shopify_attributes }}>
+          <p class="text-xl mb-6">"{{ block.settings.quote }}"</p>
+          <p class="text-[10px] font-bold uppercase tracking-widest">{{ block.settings.author }} — {{ block.settings.role }}</p>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Testimonianze",
+  "settings": [
+    { "type": "text", "id": "title", "label": "Titolo Sezione", "default": "Voci dalla community" }
+  ],
+  "blocks": [
+    {
+      "type": "testimonial",
+      "name": "Recensione",
+      "settings": [
+        { "type": "textarea", "id": "quote", "label": "Citazione" },
+        { "type": "text", "id": "author", "label": "Nome Autore" },
+        { "type": "text", "id": "role", "label": "Ruolo/Qualifica" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Testimonianze",
+      "blocks": [
+        { "type": "testimonial", "settings": { "quote": "La qualità costruttiva mi ha sorpreso. È solido.", "author": "Federico", "role": "Runner" } },
+        { "type": "testimonial", "settings": { "quote": "Lo lascio sulla scrivania mentre studio.", "author": "Elena", "role": "Studentessa" } }
+      ]
+    }
+  ]
+}
+{% endschema %}
