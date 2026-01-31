@@ -1,0 +1,28 @@
+
+[
+  {
+    "name": "theme_info",
+    "theme_name": "OFFMode Vintage",
+    "theme_version": "1.0.0",
+    "theme_author": "OFFMode Design",
+    "theme_documentation_url": "https://offmode.com",
+    "theme_support_url": "https://offmode.com/support"
+  },
+  {
+    "name": "Colori",
+    "settings": [
+      {
+        "type": "color",
+        "id": "color_bg",
+        "label": "Sfondo Principale",
+        "default": "#f9f7f2"
+      },
+      {
+        "type": "color",
+        "id": "color_text",
+        "label": "Testo Principale",
+        "default": "#1a1a1a"
+      }
+    ]
+  }
+]

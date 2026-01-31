@@ -1,0 +1,59 @@
+
+<section class="relative min-h-screen flex items-center pt-32 pb-20 px-6 overflow-hidden bg-[#f9f7f2]">
+  <div class="max-w-7xl mx-auto grid md:grid-cols-2 gap-16 items-center">
+    <div class="z-10 order-2 md:order-1 text-left">
+      <span class="text-[10px] font-bold tracking-[0.4em] uppercase text-gray-400 mb-6 block">{{ section.settings.sub_label }}</span>
+      <h1 class="serif text-6xl md:text-7xl lg:text-8xl leading-[1.05] mb-10 text-[#1a1a1a]">
+        {{ section.settings.title_main }} <br/>
+        <span class="italic text-gray-300">{{ section.settings.title_italic }}</span>
+      </h1>
+      <p class="text-lg md:text-xl text-gray-500 max-w-md mb-12 leading-relaxed font-light">
+        {{ section.settings.description }}
+      </p>
+      <div class="flex flex-col sm:flex-row items-start sm:items-center gap-8">
+        <a href="{{ section.settings.button_link }}" class="bg-black text-white px-12 py-5 font-bold text-xs uppercase tracking-[0.3em] hover:bg-zinc-800 transition-all">
+          {{ section.settings.button_text }}
+        </a>
+        <div class="text-[10px] font-bold uppercase tracking-[0.2em] text-gray-400 border-l border-gray-200 pl-6">
+          {{ section.settings.info_text }}
+        </div>
+      </div>
+    </div>
+    
+    <div class="relative order-1 md:order-2 flex justify-center md:justify-end">
+      <div class="relative w-full max-w-lg aspect-square flex items-center justify-center">
+        <div class="absolute inset-0 bg-[#f0ede4] rounded-full scale-90"></div>
+        {% if section.settings.hero_image %}
+          <img src="{{ section.settings.hero_image | img_url: '1000x' }}" class="relative z-10 w-3/4 h-3/4 object-contain mix-blend-multiply drop-shadow-2xl" alt="{{ section.settings.title_main }}">
+        {% else %}
+          <img src="https://images.unsplash.com/photo-1546435770-a3e426bf472b?auto=format&fit=crop&q=80&w=1000" class="relative z-10 w-3/4 h-3/4 object-contain mix-blend-multiply drop-shadow-2xl" alt="Placeholder">
+        {% endif %}
+        
+        <div class="absolute -bottom-6 -left-6 md:left-0 bg-white p-8 vintage-shadow border border-[#e5e1d8] z-20 max-w-[200px]">
+          <p class="serif italic text-3xl leading-none text-[#1a1a1a]">{{ section.settings.quote }}</p>
+          <div class="h-px bg-gray-100 w-full my-4"></div>
+          <p class="text-[9px] font-bold uppercase tracking-widest text-gray-400">{{ section.settings.quote_author }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Hero Vintage",
+  "settings": [
+    { "type": "text", "id": "sub_label", "label": "Etichetta Superiore", "default": "Edizione Limitata VibePod™" },
+    { "type": "text", "id": "title_main", "label": "Titolo Principale", "default": "La tua musica." },
+    { "type": "text", "id": "title_italic", "label": "Sottotitolo Italico", "default": "Senza rumore." },
+    { "type": "textarea", "id": "description", "label": "Descrizione", "default": "Un ritorno all'ascolto consapevole. Senza notifiche, senza algoritmi, solo la tua playlist preferita." },
+    { "type": "image_picker", "id": "hero_image", "label": "Immagine Prodotto" },
+    { "type": "text", "id": "button_text", "label": "Testo Bottone", "default": "Acquista Ora" },
+    { "type": "url", "id": "button_link", "label": "Link Bottone" },
+    { "type": "text", "id": "info_text", "label": "Testo Informativo", "default": "Spedizioni gratuite in tutta Italia" },
+    { "type": "text", "id": "quote", "label": "Citazione", "default": "\"Less is more.\"" },
+    { "type": "text", "id": "quote_author", "label": "Autore Citazione", "default": "Design Filosofia OFFMode" }
+  ],
+  "presets": [{ "name": "Hero Vintage" }]
+}
+{% endschema %}
