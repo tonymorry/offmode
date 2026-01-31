@@ -1,0 +1,8 @@
+{
+  "name": "VibePod Mini Landing Page",
+  "description": "A high-conversion e-commerce landing page for VibePod Mini™, featuring Y2K nostalgia and modern tech minimalist aesthetics.",
+  "requestFramePermissions": [
+    "camera",
+    "microphone"
+  ]
+}
