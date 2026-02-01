@@ -19,7 +19,7 @@
     <!-- Cart & CTA -->
     <div class="flex items-center space-x-6">
       <a href="{{ routes.cart_url }}" class="text-[10px] font-bold uppercase tracking-widest text-gray-400 hover:text-black">
-        Carrello ({{ cart.item_count }})
+        {{ 'cart.general.title' | t | default: 'Cart' }} ({{ cart.item_count }})
       </a>
       <a href="{{ section.settings.cta_link | default: '#prodotto' }}" class="bg-black text-white px-8 py-2.5 text-[10px] font-bold uppercase tracking-[0.2em] hover:bg-zinc-800 transition-all">
         {{ section.settings.cta_text }}

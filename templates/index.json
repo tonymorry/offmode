@@ -1,26 +1,11 @@
-/*
- * ------------------------------------------------------------
- * IMPORTANT: The contents of this file are auto-generated.
- *
- * This file may be updated by the Shopify admin theme editor
- * or related systems. Please exercise caution as any changes
- * made to this file may be overwritten.
- * ------------------------------------------------------------
- */
+
 {
   "sections": {
     "hero": {
       "type": "hero",
       "settings": {
-        "sub_label": "Edizione Limitata VibePod™",
         "title_main": "La tua musica.",
-        "title_italic": "Senza rumore.",
-        "description": "Un ritorno all'ascolto consapevole. Senza notifiche, senza algoritmi, solo la tua playlist preferita in un design essenziale.",
-        "button_text": "Acquista Ora",
-        "button_link": "#shopify-section-template--26489330106692__product_showcase",
-        "info_text": "Spedizione gratuita.",
-        "quote": "\"Less is more.\"",
-        "quote_author": "Design Filosofia OFFMode"
+        "title_italic": "Senza rumore."
       }
     },
     "features": {
@@ -29,41 +14,21 @@
     },
     "product_showcase": {
       "type": "main-product",
-      "settings": {
-        "product": "vibepod-mini™"
-      }
-    },
-    "about_jmpkCY": {
-      "type": "about",
-      "name": "Filosofia Brand",
-      "settings": {
-        "kicker": "La nostra missione",
-        "headline": "Siamo costantemente connessi, ma raramente presenti.",
-        "text_left": "<p>OFFMode nasce come risposta al sovraccarico digitale. In un mondo che corre, abbiamo creato un oggetto che ti invita a rallentare.</p>",
-        "text_right": "<p>Ogni dettaglio è pensato per farti dimenticare il dispositivo e farti vivere il momento. Riprenditi il tuo tempo.</p>"
-      }
+      "settings": {}
     },
     "about": {
       "type": "about",
-      "settings": {
-        "kicker": "Prodotto in Evidenza",
-        "headline": "Bluetooth Compatible MP3 Music Player",
-        "text_left": "<p>Lettore MP3 portatile con tecnologia Bluetooth compatibile. Perfetto per chi ama la musica in movimento, con qualità audio lossless e design ultra-sottile.</p>",
-        "text_right": "<p>Caratteristiche: Radio FM integrata, registrazione audio, batteria lunga durata, design compatto e leggero. Ideale per studenti, sportivi e appassionati di musica.</p>"
-      }
+      "settings": {}
     },
     "testimonials": {
       "type": "testimonials",
-      "settings": {
-        "title": "Voci dalla community"
-      }
+      "settings": {}
     }
   },
   "order": [
     "hero",
     "features",
     "product_showcase",
-    "about_jmpkCY",
     "about",
     "testimonials"
   ]

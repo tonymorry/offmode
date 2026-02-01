@@ -1,55 +1,91 @@
-{% comment %} Tentativo di recuperare il prodotto dalle impostazioni o dall'handle diretto {% endcomment %}
-{%- assign product = section.settings.product -%}
-{%- if product == blank -%}
-  {%- assign product = all_products['vibepod-mini™'] -%}
-{%- endif -%}
 
+{%- assign product = all_products[section.settings.product] -%}
 {%- assign current_variant = product.selected_or_first_available_variant -%}
 
-<section class="max-w-7xl mx-auto px-4 py-12 md:py-24" data-section-id="{{ section.id }}">
-  <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-    
-    <div class="aspect-square bg-[#f5f5f5] rounded-2xl overflow-hidden p-8">
-      {% if product.featured_image %}
-        <img src="{{ product.featured_image | img_url: '1000x1000' }}" 
-             alt="{{ product.title }}"
-             class="w-full h-full object-contain mix-blend-multiply">
-      {% else %}
-        {{ 'product-1' | placeholder_svg_tag: 'w-full h-full' }}
-      {% endif %}
-    </div>
-
-    <div>
-      {% if product != blank %}
-        <span class="inline-block px-3 py-1 bg-black text-white text-xs font-medium rounded-full mb-4 uppercase tracking-widest">
-          Disponibile Ora
-        </span>
-        <h2 class="text-3xl md:text-5xl font-serif mb-4">{{ product.title }}</h2>
-        <p class="text-2xl text-gray-600 mb-8">{{ product.price | money }}</p>
-        
-        <div class="prose prose-sm mb-8 text-gray-500">
-          {{ product.description }}
+<section id="prodotto" class="py-32 px-6 bg-white border-y border-[#e5e1d8]">
+  {% if product != blank %}
+    <div class="max-w-7xl mx-auto grid lg:grid-cols-2 gap-24">
+      
+      <!-- Gallery Column -->
+      <div class="lg:sticky lg:top-32 h-fit">
+        <div class="bg-[#f9f7f2] aspect-square flex items-center justify-center p-16 border border-[#e5e1d8] relative overflow-hidden group">
+          <img id="MainProductImage" src="{{ product.featured_image | img_url: '1200x' }}" class="w-full h-full object-contain mix-blend-multiply transition-transform duration-700 group-hover:scale-110" alt="{{ product.title }}">
+          <div class="absolute bottom-6 right-6">
+            <span class="text-[10px] font-bold tracking-widest text-gray-300 uppercase">Studio Shot / Original</span>
+          </div>
         </div>
+        <div class="grid grid-cols-4 gap-4 mt-6">
+          {% for image in product.images limit: 4 %}
+            <div class="aspect-square border border-[#e5e1d8] bg-[#f9f7f2] cursor-pointer hover:border-black transition-all">
+              <img src="{{ image | img_url: '400x400', crop: 'center' }}" class="w-full h-full object-contain mix-blend-multiply">
+            </div>
+          {% endfor %}
+        </div>
+      </div>
 
-        {% form 'product', product %}
-          <input type="hidden" name="id" value="{{ current_variant.id }}">
-          <button type="submit" 
-                  class="w-full bg-black text-white py-4 rounded-full hover:bg-gray-800 transition-all transform hover:scale-[1.02] active:scale-[0.98]"
-                  {% unless current_variant.available %}disabled{% endunless %}>
-            {% if current_variant.available %}
-              Aggiungi al Carrello — {{ product.price | money }}
-            {% else %}
-              Sold Out
+      <!-- Info Column -->
+      <div class="flex flex-col justify-center">
+        <div class="mb-12">
+          <span class="text-[10px] font-black uppercase tracking-[0.3em] py-1 px-3 border border-black inline-block mb-6">Best Seller</span>
+          <h2 class="serif text-5xl md:text-6xl mb-6 text-[#1a1a1a]">{{ product.title }}</h2>
+          <div class="flex items-baseline space-x-6 mb-8">
+            <span id="ProductPrice" class="text-4xl font-medium text-[#1a1a1a]">{{ current_variant.price | money }}</span>
+            {% if current_variant.compare_at_price > current_variant.price %}
+              <span class="text-xl text-gray-300 line-through">{{ current_variant.compare_at_price | money }}</span>
             {% endif %}
-          </button>
-        {% endform %}
-      {% else %}
-        <div class="p-10 border-2 border-dashed border-gray-200 text-center">
-          <p>Configura il prodotto nell'editor del tema o verifica l'handle.</p>
+          </div>
+          <div class="text-gray-500 leading-relaxed text-lg font-light mb-8">
+            {{ product.description }}
+          </div>
         </div>
-      {% endif %}
+
+        {% form 'product', product, class: 'product-form space-y-8' %}
+          <input type="hidden" name="id" value="{{ current_variant.id }}">
+          
+          {% unless product.has_only_default_variant %}
+            <div class="p-8 bg-[#f9f7f2] border border-[#e5e1d8]">
+              <h4 class="text-[10px] font-bold uppercase tracking-[0.25em] text-gray-400 mb-6">Opzioni Prodotto</h4>
+              <div class="space-y-4">
+                {% for option in product.options_with_values %}
+                  <div class="selector-wrapper">
+                    <label class="block text-[9px] font-bold uppercase tracking-widest text-gray-400 mb-3">{{ option.name }}</label>
+                    <select name="options[{{ option.name }}]" class="w-full p-4 border border-[#e5e1d8] bg-white text-xs font-bold uppercase tracking-widest outline-none focus:border-black transition-all">
+                      {% for value in option.values %}
+                        <option value="{{ value | escape }}" {% if option.selected_value == value %}selected{% endif %}>
+                          {{ value }}
+                        </option>
+                      {% endfor %}
+                    </select>
+                  </div>
+                {% endfor %}
+              </div>
+            </div>
+          {% endunless %}
+
+          <div class="space-y-6">
+            <button type="submit" name="add" class="w-full bg-black text-white py-7 text-[11px] font-black uppercase tracking-[0.4em] hover:bg-zinc-800 transition-all">
+              {{ 'products.product.add_to_cart' | t | default: 'Aggiungi al Carrello' }}
+            </button>
+            
+            <div class="grid grid-cols-2 gap-4">
+              <div class="border border-[#e5e1d8] p-5 text-center">
+                <span class="block text-[9px] font-bold uppercase text-gray-400 mb-2 tracking-widest">Tempo di Ricarica</span>
+                <span class="text-[11px] font-bold uppercase text-[#1a1a1a]">45 Minuti</span>
+              </div>
+              <div class="border border-[#e5e1d8] p-5 text-center">
+                <span class="block text-[9px] font-bold uppercase text-gray-400 mb-2 tracking-widest">Garanzia</span>
+                <span class="text-[11px] font-bold uppercase text-[#1a1a1a]">2 Anni Italia</span>
+              </div>
+            </div>
+          </div>
+        {% endform %}
+      </div>
     </div>
-  </div>
+  {% else %}
+    <div class="text-center py-20 italic text-gray-400 border border-dashed border-gray-200">
+      Seleziona un prodotto nelle impostazioni della sezione per visualizzarlo qui.
+    </div>
+  {% endif %}
 </section>
 
 {% schema %}
@@ -62,10 +98,6 @@
       "label": "Seleziona Prodotto"
     }
   ],
-  "presets": [
-    {
-      "name": "Showcase Prodotto"
-    }
-  ]
+  "presets": [{ "name": "Showcase Prodotto" }]
 }
 {% endschema %}
