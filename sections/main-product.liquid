@@ -1,26 +1,28 @@
-
-{%- assign product = all_products['vibepod-mini™'] -%}
+{%- assign product = section.settings.product -%}
 {%- assign current_variant = product.selected_or_first_available_variant -%}
 
 <section id="prodotto" class="py-32 px-6 bg-white border-y border-[#e5e1d8]">
   {% if product != blank %}
     <div class="max-w-7xl mx-auto grid lg:grid-cols-2 gap-24">
       
-      <!-- Gallery -->
       <div class="lg:sticky lg:top-32 h-fit">
         <div class="bg-[#f9f7f2] aspect-square flex items-center justify-center p-16 border border-[#e5e1d8] relative overflow-hidden group">
-          <img id="MainProductImage" src="{{ product.featured_image | img_url: '1200x' }}" class="w-full h-full object-contain mix-blend-multiply transition-transform duration-700 group-hover:scale-110" alt="{{ product.title }}">
+          <img id="MainProductImage" 
+               src="{{ product.featured_image | img_url: '1200x' }}" 
+               class="w-full h-full object-contain mix-blend-multiply transition-transform duration-700 group-hover:scale-110" 
+               alt="{{ product.title }}">
         </div>
+        
         <div class="grid grid-cols-4 gap-4 mt-6">
           {% for image in product.images limit: 4 %}
-            <div class="aspect-square border border-[#e5e1d8] bg-[#f9f7f2] cursor-pointer hover:border-black transition-all">
+            <div class="aspect-square border border-[#e5e1d8] bg-[#f9f7f2] cursor-pointer hover:border-black transition-all"
+                 onclick="document.getElementById('MainProductImage').src='{{ image | img_url: '1200x' }}'">
               <img src="{{ image | img_url: '400x400', crop: 'center' }}" class="w-full h-full object-contain mix-blend-multiply">
             </div>
           {% endfor %}
         </div>
       </div>
 
-      <!-- Info -->
       <div class="flex flex-col justify-center">
         <div class="mb-12">
           <span class="text-[10px] font-black uppercase tracking-[0.3em] py-1 px-3 border border-black inline-block mb-6">Edizione Originale</span>
@@ -46,7 +48,7 @@
                 {% for option in product.options_with_values %}
                   <div class="selector-wrapper">
                     <label class="block text-[9px] font-bold uppercase tracking-widest text-gray-400 mb-3">{{ option.name }}</label>
-                    <select class="w-full p-4 border border-[#e5e1d8] bg-white text-xs font-bold uppercase tracking-widest outline-none focus:border-black transition-all">
+                    <select name="options[{{ option.name }}]" class="w-full p-4 border border-[#e5e1d8] bg-white text-xs font-bold uppercase tracking-widest outline-none focus:border-black transition-all">
                       {% for value in option.values %}
                         <option value="{{ value | escape }}" {% if option.selected_value == value %}selected{% endif %}>
                           {{ value }}
@@ -61,7 +63,11 @@
 
           <div class="space-y-6">
             <button type="submit" name="add" class="w-full bg-black text-white py-7 text-[11px] font-black uppercase tracking-[0.4em] hover:bg-zinc-800 transition-all">
-              {{ 'products.product.add_to_cart' | t | default: 'Aggiungi al Carrello' }}
+              {% if current_variant.available %}
+                Aggiungi al Carrello
+              {% else %}
+                Esaurito
+              {% endif %}
             </button>
           </div>
         {% endform %}
@@ -69,7 +75,7 @@
     </div>
   {% else %}
     <div class="text-center py-20 italic text-gray-400 border border-dashed border-gray-200">
-      Assicurati che il prodotto con handle 'vibepod-mini™' esista nel tuo store.
+      Seleziona un prodotto nell'editor del tema (Sezione Showcase Prodotto).
     </div>
   {% endif %}
 </section>
@@ -77,7 +83,13 @@
 {% schema %}
 {
   "name": "Showcase Prodotto",
-  "settings": [],
+  "settings": [
+    {
+      "type": "product",
+      "id": "product",
+      "label": "Seleziona Prodotto"
+    }
+  ],
   "presets": [{ "name": "Showcase Prodotto" }]
 }
 {% endschema %}
