@@ -1,28 +1,26 @@
 
 <header class="fixed top-0 left-0 w-full z-[100] bg-[#f9f7f2]/90 backdrop-blur-md border-b border-[#e5e1d8] px-6 py-5">
   <div class="max-w-7xl mx-auto flex justify-between items-center">
-    <!-- Brand / Logo -->
+    <!-- Brand -->
     <div class="flex items-center space-x-1">
       <a href="{{ routes.root_url }}" class="text-xl font-bold tracking-[0.25em] uppercase">{{ shop.name }}</a>
-      {% if section.settings.show_badge %}
-        <span class="text-[9px] bg-black text-white px-2 py-0.5 rounded-sm ml-3 font-bold tracking-widest">ORIGINAL</span>
-      {% endif %}
+      <span class="text-[9px] bg-black text-white px-2 py-0.5 rounded-sm ml-3 font-bold tracking-widest">ORIGINAL</span>
     </div>
     
     <!-- Navigation -->
     <nav class="hidden md:flex space-x-12 text-[10px] font-bold tracking-[0.2em] uppercase text-gray-400">
       {% for link in linklists[section.settings.menu].links %}
-        <a href="{{ link.url }}" class="hover:text-black transition-colors {% if link.active %}text-black{% endif %}">{{ link.title }}</a>
+        <a href="{{ link.url }}" class="hover:text-black transition-colors">{{ link.title }}</a>
       {% endfor %}
     </nav>
 
     <!-- Cart & CTA -->
     <div class="flex items-center space-x-6">
       <a href="{{ routes.cart_url }}" class="text-[10px] font-bold uppercase tracking-widest text-gray-400 hover:text-black">
-        {{ 'cart.general.title' | t | default: 'Cart' }} ({{ cart.item_count }})
+        Carrello ({{ cart.item_count }})
       </a>
-      <a href="{{ section.settings.cta_link | default: '#prodotto' }}" class="bg-black text-white px-8 py-2.5 text-[10px] font-bold uppercase tracking-[0.2em] hover:bg-zinc-800 transition-all">
-        {{ section.settings.cta_text }}
+      <a href="#prodotto" class="bg-black text-white px-8 py-2.5 text-[10px] font-bold uppercase tracking-[0.2em] hover:bg-zinc-800 transition-all">
+        Ordina
       </a>
     </div>
   </div>
@@ -37,23 +35,6 @@
       "id": "menu",
       "label": "Menu principale",
       "default": "main-menu"
-    },
-    {
-      "type": "checkbox",
-      "id": "show_badge",
-      "label": "Mostra badge 'Original'",
-      "default": true
-    },
-    {
-      "type": "text",
-      "id": "cta_text",
-      "label": "Testo Bottone",
-      "default": "Ordina"
-    },
-    {
-      "type": "url",
-      "id": "cta_link",
-      "label": "Link Bottone"
     }
   ]
 }
