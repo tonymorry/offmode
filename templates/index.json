@@ -1,11 +1,26 @@
-
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "hero": {
       "type": "hero",
       "settings": {
+        "sub_label": "Edizione Limitata VibePod™",
         "title_main": "La tua musica.",
-        "title_italic": "Senza rumore."
+        "title_italic": "Senza rumore.",
+        "description": "Un ritorno all'ascolto consapevole. Senza notifiche, senza algoritmi, solo la tua playlist preferita in un design essenziale.",
+        "button_text": "Acquista Ora",
+        "button_link": "",
+        "info_text": "Spedizione gratuita in tutta Italia",
+        "quote": "\"Less is more.\"",
+        "quote_author": "Design Filosofia OFFMode"
       }
     },
     "features": {
@@ -14,15 +29,24 @@
     },
     "product_showcase": {
       "type": "main-product",
-      "settings": {}
+      "settings": {
+        "product": "vibepod-mini™"
+      }
     },
     "about": {
       "type": "about",
-      "settings": {}
+      "settings": {
+        "kicker": "La nostra missione",
+        "headline": "Siamo costantemente connessi, ma raramente presenti.",
+        "text_left": "<p>OFFMode nasce come risposta al sovraccarico digitale. In un mondo che corre, abbiamo creato un oggetto che ti invita a rallentare.</p>",
+        "text_right": "<p>Ogni dettaglio è pensato per farti dimenticare il dispositivo e farti vivere il momento. Riprenditi il tuo tempo.</p>"
+      }
     },
     "testimonials": {
       "type": "testimonials",
-      "settings": {}
+      "settings": {
+        "title": "Voci dalla community"
+      }
     }
   },
   "order": [
